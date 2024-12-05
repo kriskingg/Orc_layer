@@ -1,0 +1,184 @@
+# Orchestration Layer API Documentation
+
+## Purpose
+The Orchestration Layer API securely manages secrets across Azure Key Vault and HashiCorp Vault. It provides APIs for user authentication, secret management, and metadata routing.
+
+---
+
+## Flow Architecture
+
+### High-Level Workflow
+- **Authentication Layer**: Users authenticate using token-based authentication. Token verification is handled by the `verify_token` utility.
+- **Secret Management**: 
+  - Secret metadata is stored in the SQLite database.
+  - Secrets are dynamically routed to HashiCorp Vault or Azure Key Vault based on metadata.
+- **Database Integration**:
+  - SQLite database securely manages user data and metadata.
+  - **Tables**:
+    - `users`: Stores usernames and hashed passwords.
+    - `secrets`: Maps secret paths to their respective backends.
+
+---
+
+## API Reference
+
+### Base URL
+http://127.0.0.1:8000/api/v1/orc
+
+yaml
+Copy code
+
+---
+
+### 1. Register User
+**Endpoint**:  
+`POST /auth/register`
+
+**Request**:
+```json
+{
+    "username": "<your_username>",
+    "password": "<your_password>"
+}
+Response:
+
+json
+Copy code
+{
+    "message": "User registered successfully"
+}
+cURL:
+
+bash
+Copy code
+curl -X POST http://127.0.0.1:8000/api/v1/orc/auth/register \
+-H "Content-Type: application/json" \
+-d '{
+    "username": "<your_username>",
+    "password": "<your_password>"
+}'
+2. Login User
+Endpoint:
+POST /auth/login
+
+Request:
+
+json
+Copy code
+{
+    "username": "<your_username>",
+    "password": "<your_password>"
+}
+Response:
+
+json
+Copy code
+{
+    "access_token": "your_jwt_token_here"
+}
+cURL:
+
+bash
+Copy code
+curl -X POST http://127.0.0.1:8000/api/v1/orc/auth/login \
+-H "Content-Type: application/json" \
+-d '{
+    "username": "<your_username>",
+    "password": "<your_password>"
+}'
+3. Create Secret Metadata
+Endpoint:
+POST /secrets
+
+Request:
+
+json
+Copy code
+{
+    "path": "/example/secret/path",
+    "backend": "azure"
+}
+Response:
+
+json
+Copy code
+{
+    "message": "Secret metadata stored successfully"
+}
+cURL:
+
+bash
+Copy code
+curl -X POST http://127.0.0.1:8000/api/v1/orc/secrets \
+-H "Authorization: Bearer your_jwt_token_here" \
+-H "Content-Type: application/json" \
+-d '{
+    "path": "/example/secret/path",
+    "backend": "azure"
+}'
+4. Get Secret Metadata
+Endpoint:
+GET /secrets/{path}
+
+Response:
+
+json
+Copy code
+{
+    "backend": "azure"
+}
+cURL:
+
+bash
+Copy code
+curl -X GET http://127.0.0.1:8000/api/v1/orc/secrets/example/secret/path \
+-H "Authorization: Bearer your_jwt_token_here"
+Flow Diagram
+plaintext
+Copy code
++---------------------------+
+|    Orchestration Layer    |
+|  (FastAPI Application)    |
++---------------------------+
+         |        |
+         |        |
+  +------v-----+  +-----v------+
+  |  Auth API  |  |  Secrets   |
+  | (Register, |  |  API       |
+  |   Login)   |  | (CRUD Ops) |
+  +------------+  +------------+
+         |
++--------v-------------------+
+|      SQLite Database       |
+| (Users, Secrets Metadata)  |
++----------------------------+
+         |
++--------v--------+  +-------v---------+
+| HashiCorp Vault |  | Azure Key Vault |
++-----------------+  +-----------------+
+Environment Setup
+Install Dependencies:
+bash
+Copy code
+pip install fastapi uvicorn sqlite3 python-dotenv
+Run the Server:
+bash
+Copy code
+uvicorn app.main:app --reload
+Database Initialization:
+The database is automatically initialized when the server starts.
+plaintext
+Copy code
+Users: Stores usernames and hashed passwords.
+Secrets: Maps secret paths to their respective backends.
+
+---
+
+### Save this documentation for reference.
+
+Feel free to extend the features as needed, such as:
+1. Adding support for more backends.
+2. Enhanced error handling for API interactions.
+3. Integration with external logging or monitoring systems.
+
+Make sure all environment-specific variables are set before running the application to ensure proper functionality and security.

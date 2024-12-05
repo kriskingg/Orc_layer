@@ -1,0 +1,24 @@
+# Start Vault in Development Mode (Run this in a separate command prompt or background process)
+vault server -dev
+
+# In a new command prompt window, set the Vault server address and token (use the actual token printed by the dev server)
+set VAULT_ADDR=http://127.0.0.1:8200
+set VAULT_TOKEN=<Root_Token_From_Startup>
+
+# Navigate to your Vault executable directory
+cd D:\hashi_vault\vault_1.18.2_windows_amd64
+
+# Enable AppRole Authentication Method
+vault auth enable approle
+
+# Create a Policy and Upload it
+vault policy write orc_layer "D:\OrcLayer_2\app\orc_policy.hcl"
+
+# Create an AppRole with Attached Policy
+vault write auth/approle/role/my-approle token_policies="orc_layer"
+
+# Retrieve the RoleID for the AppRole
+vault read auth/approle/role/my-approle/role-id
+
+# Generate a SecretID for the AppRole
+vault write -f auth/approle/role/my-approle/secret-id
