@@ -1,8 +1,10 @@
 Here’s a comprehensive list of questions you should consider and discuss with your architects and manager. These questions are categorized for better organization:
 
-Strategic Questions
+------------------------Strategic Questions--------------------
 
 Purpose and Vision
+==========================
+
 Why are we building an orchestration layer?
 
 What specific problems does this solve for us?
@@ -10,22 +12,30 @@ What specific problems does this solve for us?
 Are there existing solutions in the market that we can leverage instead of building our own?
 
 Timeline and Goals
+==========================
 How long is this project expected to take?
 
 What are the milestones and deadlines for delivery?
 
 What are the success criteria for this project?
 
+
+
 Future-Proofing
+==========================
+
 What happens if we decide to stop using HashiCorp Vault or Azure Key Vault in the future?
 
 How easy is it to integrate new secret management systems later (e.g., AWS Secrets Manager)?
 
 How will this design scale as the number of users/secrets grows?
 
-Architectural Questions
+-------------------Architectural Questions-------------------
+
 
 Design and Scalability
+==========================
+
 What is the high-level architecture of the orchestration layer?
 
 How will we handle routing logic to multiple secret managers?
@@ -35,6 +45,8 @@ Will the orchestration layer need to store metadata about secrets? If yes, what 
 What will be the expected load (e.g., requests per second) on the orchestration layer?
 
 Performance
+==========================
+
 What is the expected latency added by the orchestration layer?
 
 Can we implement caching for frequently accessed secrets to improve performance?
@@ -44,9 +56,11 @@ How will the system handle failures (e.g., when HashiCorp Vault or Azure Key Vau
 
 Will the orchestration layer support retries or fallbacks to other systems?
 
-Implementation Questions
+------------------------Implementation Questions---------------------------
 
 Development and Maintenance
+==========================
+
 What technology stack will we use for the orchestration layer (e.g., language, framework)?
 
 Who will develop and maintain this layer?
@@ -56,11 +70,15 @@ What happens if the developer(s) leaves the company? Do we have sufficient docum
 Will this require ongoing maintenance? If yes, what kind of resources are needed?
 
 API Standardization
+==========================
+
 How will we standardize APIs for different secret management systems?
 
 Will the orchestration layer expose a REST API, gRPC, or something else?
 
 Authentication and Security
+==========================
+
 How will users authenticate with the orchestration layer?
 
 How will the orchestration layer authenticate with HashiCorp Vault and Azure Key Vault?
@@ -70,11 +88,14 @@ Will we need additional certificates or credentials to integrate with these syst
 How will we rotate credentials for the orchestration layer?
 
 Monitoring and Logging
+==========================
+
 How will we monitor the orchestration layer?
 
 What logging or alerting systems will we implement for operational visibility?
 
 Operational Questions
+==========================
 
 One-Time vs Ongoing Effort
 Is this a one-time setup, or will it require ongoing maintenance and updates?
@@ -82,23 +103,31 @@ Is this a one-time setup, or will it require ongoing maintenance and updates?
 How often will we need to update the orchestration layer (e.g., when new APIs are introduced by HashiCorp or Azure)?
 
 Dependencies
+==========================
+
 Does the orchestration layer have any external dependencies (e.g., libraries, third-party APIs)?
 
 How do we ensure these dependencies are secure and up to date?
 
 Migration
+==========================
+
 How difficult is it to migrate secrets from one system to another (e.g., from HashiCorp Vault to Azure Key Vault)?
 
 What happens to existing secrets if we decide to stop using one of the secret management systems?
 
 Decommissioning
+==========================
+
 How do we disconnect a secret management system from the orchestration layer?
 
 What happens to the secrets stored in a system we no longer use?
 
-Cost and Resource Questions
+------------------------Cost and Resource Questions--------------
 
 Cost
+==========================
+
 What is the cost of developing and maintaining the orchestration layer?
 
 Will this orchestration layer help reduce operational costs in the long run (e.g., by standardizing integrations)?
@@ -106,6 +135,8 @@ Will this orchestration layer help reduce operational costs in the long run (e.g
 Are there additional costs for managing certificates, authentication mechanisms, or external libraries?
 
 Resources
+==========================
+
 How many people will be required to develop, deploy, and maintain this solution?
 
 Does this require specific expertise (e.g., knowledge of HashiCorp Vault, Azure Key Vault, or API design)?
@@ -113,16 +144,22 @@ Does this require specific expertise (e.g., knowledge of HashiCorp Vault, Azure 
 Flexibility and Extensibility
 
 Integration
+==========================
+
 How easy is it to integrate additional secret management solutions in the future?
 
 Can the orchestration layer support hybrid setups (e.g., some secrets in the cloud, others on-premises)?
 
 Extensibility
+==========================
+
 How can we extend the orchestration layer’s functionality in the future?
 
 Can it handle other types of sensitive information (e.g., certificates, tokens) beyond secrets?
 
 Vendor Lock-In
+==========================
+
 Does this solution introduce vendor lock-in?
 
 How can we avoid being tied to a single secret management system?
@@ -130,23 +167,31 @@ How can we avoid being tied to a single secret management system?
 Risk and Mitigation Questions
 
 Risks
+==========================
+
 What are the key risks involved in building this orchestration layer?
 
 What are the fallback options if this layer fails or becomes unavailable?
 
 Security
+==========================
+
 How do we ensure the orchestration layer itself is secure?
 
 What measures are in place to prevent unauthorized access or data leaks?
 
-End-User Questions
+-------------------End-User Questions----------------------
 
 User Experience
+==========================
+
 How do we ensure the orchestration layer is easy to use for developers and teams?
 
 Will there be any training required for users to interact with this layer?
 
 Documentation
+==========================
+
 What kind of documentation will we provide to end users and maintainers?
 
 How will we ensure the documentation is kept up to date?
@@ -154,11 +199,15 @@ How will we ensure the documentation is kept up to date?
 Evaluation of Alternatives
 
 Alternatives
+==========================
+
 Are there any existing tools or platforms that can serve as the orchestration layer?
 
 Why should we build this instead of buying or using an open-source solution?
 
 Comparison
+==========================
+
 How does this solution compare to managing secrets directly in HashiCorp Vault or Azure Key Vault?
 
 What are the trade-offs (e.g., added complexity vs. abstraction benefits)?
@@ -166,11 +215,15 @@ What are the trade-offs (e.g., added complexity vs. abstraction benefits)?
 Post-Implementation Questions
 
 Testing
+==========================
+
 How will we test the orchestration layer for functionality, performance, and security?
 
 Will we conduct regular audits of the system?
 
 Support
+==========================
+
 Who will be responsible for supporting the orchestration layer post-deployment?
 
 Will there be a dedicated team, or will it be part of another team's responsibility?
