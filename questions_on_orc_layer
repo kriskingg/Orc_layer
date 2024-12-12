@@ -157,15 +157,6 @@ How can we extend the orchestration layer’s functionality in the future?
 
 Can it handle other types of sensitive information (e.g., certificates, tokens) beyond secrets?
 
-Vendor Lock-In
-==========================
-
-Does this solution introduce vendor lock-in?
-
-How can we avoid being tied to a single secret management system?
-
-Risk and Mitigation Questions
-
 Risks
 ==========================
 
